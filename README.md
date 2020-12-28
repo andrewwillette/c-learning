@@ -58,3 +58,30 @@ Reads at most ``counts - 1`` characters from the given file stream and stores th
 
 The behavior is undefined if ``count`` is less than 1.
 </pre>
+
+## Lesson 3 Notes
+
+### Regarding Variable Names
+
+- The name can contain letters (a to z, A to Z), digits (0 to 9), and the underscore character (_)
+- The first character of the name must be a letter. The underscore is also a legal first character, but its use is not recommended at the beginning of a name. A digit (0 to 9) cannot be used as the first character.
+- Case matters (that is, upper- and lowercase letters). C is case-sensitive, thus, the names ``count`` and ``Count`` refer to two different variables.
+- C keywords cannot be used as variable names. A keyword is a word that is part of the C langauge.
+
+C programmers commonly use only lowercase letters in variable names, although this isn't required. Using all uppercase letters is usually reserved for the names of constants.
+
+### Numeric Variable Types
+
+C provides several different types of numeric variables. You need different types of variables because different numeric values have varying memory storage requirements and differ in the ease with which certain mathematical operations can be performed on them. Small integers (for example, 1, 199, and -9) require less memory to store, and your computer can perform mathematical operations (addition, multiplication, and so on) with such numbers quickly. In contrast, large integers and floating-point values (123,000,000, 3.14, or 0.000000871265, for example) require more storage space and more time for mathematical operations. By using the appropriate variable types, you ensure that your program runs as efficiently as possible.
+
+C's numeric variables fall into the following two main categories:
+- Integer variables hold values that have no fractional part (that is, whole numbers only). Integer variables come in two flavors, signed integer variables can hold positive or negative values, whereas unsigned integer variables can hold only positive values (and 0).
+- Floating-point variables hold values that have a fractional part (that is, real numbers)
+
+|Variable Type|Keyword|Bytes Required|Range|
+|-------------|-------|--------------|-----|
+|Character|``char``|1|``-128`` to ``127``|
+|Short Integer|``short``|2|``-32767`` to ``32767``|
+|Integer|``int``|4|``-2,147,483,647`` to ``2,147,483,647``|
+|Long integer|``long``|4|``-2,147,483,647`` to ``2,147,483,647``|
+|Long long integer|``long long``|8|``-9,223,372,036,854,775,807`` to ``9,223,372,036,854,775,807``|

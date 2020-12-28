@@ -49,3 +49,12 @@ Unable to find Mach task port for process-id 2002: (os/kern) failure (0x5).
 
 Alright, got lldb working. We out here.
 
+This list_it.c uses fgets function... Reading the doc [here](https://devdocs.io/c/io/fgets).
+
+<pre>
+char *fgets( chat *str, int count, FILE *stream);
+
+Reads at most ``counts - 1`` characters from the given file stream and stores them in the character array pointed to by ``str``. Parsing stops if end-of-file occurs or a newline character is found, in which case ``str`` will contain that newline character. If no errors occur, writes a null character at the position immediately after the last character written to ``str``.
+
+The behavior is undefined if ``count`` is less than 1.
+</pre>

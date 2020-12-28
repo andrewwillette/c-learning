@@ -27,3 +27,25 @@ My linker on mac is ld. Not really sure how to use this yet.
 
 ## Lesson 2 Notes
 
+Looking at ``bigyear.c``, let's discuss the programs components.
+
+The ``main()`` function - The only component required in every executable C program. Passing ``void`` is not necessary in all compilers, but the ANSI compiler recommends including it to show there is nothing sent to the ``main`` function. Per the ANSI Standard, the only statement one needs to include is the ``return`` statement.
+
+In C, a variable must be defined before it can be used.
+
+### How to debug a C program from the terminal? GDB? LLDB?
+
+I'm reading about something called gdb. The GNU Debugger (GDB), a portable debugger. GDB offers extensive facilities for tracing and altering the execution of computer programs. The user can monitor and modify the values of programs' internal variables, and even call functions independently of the program's normal behavior.
+
+GDB target processors (as of 2003 ( we out here )) include: Alpha, ARM, AVR, H8/300, Altera Nios/Nios II, System/370, System 390, X86 and its 64-bit extension X86-64, IA-64 "Itanium", Motoral 68000, MIPS, PA-RISC, PowerPC, SuperH, SPARC, and VAX. Less-known target processors supported in the standard release have included A29K, ARC, ETRAX CRIS, D10V, D30V, FR-30, FR-V, Intel i960, 68HC11, Motorola 88000, MCORE, MN10200, MN10300, NS32K, Stormy16, and Z8000. (Newer releases will likely not support some of these.) GDB has compiled-in simulators for even lesser-known target processors such like M32R or V850.
+
+GDB is still actively developed. As of version 7.0 new features include support for Python scripting and as of version 7.8 GNU Guile scripting as well. Since version 7.0, support for "reversible debugging" -- allowing a debugging session to step backward, much like rewinding a crashed program to see what happened -- is available.
+
+This debugger seems kind of awful honestly. I read online about good debugger and people say just learn to code you shouldn't have to debug. The hell is the C community on about? What are these people? Just don't write bugs and then you don't need a debugger? This is insanity.
+
+Giving up on this for now, seems difficult. Having issues with gdb not being codesigned.
+Unable to find Mach task port for process-id 2002: (os/kern) failure (0x5).
+    (please check gdb is codesigned - see taskgated(8))
+
+Alright, got lldb working. We out here.
+

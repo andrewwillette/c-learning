@@ -85,3 +85,19 @@ C's numeric variables fall into the following two main categories:
 |Integer|``int``|4|``-2,147,483,647`` to ``2,147,483,647``|
 |Long integer|``long``|4|``-2,147,483,647`` to ``2,147,483,647``|
 |Long long integer|``long long``|8|``-9,223,372,036,854,775,807`` to ``9,223,372,036,854,775,807``|
+|Unsigned character|``unsigned char``|1|``0`` to ``255``|
+|Unsigned short integer|``unsigned short``|2|``0`` to ``655535``|
+|Unsigned integer|``unsigned int``|4|``0`` to ``4,294,967,295``|
+|Unsigned long integer|``unsigned long``|4|``0`` to ``4,294,967,295``|
+|Unsigned long long integer|``unsigned long long``|8|``0`` to ``18,446,744,073,709,551,615``|
+|Single-precision floating-point|``float``|4|``1.2E-38`` to ``3.4E38``|
+|Double-precision floating-point|``double``|8|``2.2E-308`` to ``1.8E308^2``|
+
+``int`` and ``long`` look identical. Why is this? The ``int`` and ``long`` indeed are identical on 64-bit Intel systems (PCs), but they might be different on other types of hardware. Remember that C is a flexible, portable language, so it provides different keywords for the two types. If you work on a PC, you can use ``int`` and ``long`` interchangeably.
+
+No special keyword is needed to make an integer variable signed; integer variables are signed by default. You can, however, include the ``signed`` keyword if you want. The keywords show in the above table are used in variable declarations, which we will discuss in the next section.
+
+``sizeof.c`` helps you determine the size of variables on your particular computer. Don't be surprised if your output doesn't match the output presented after the listing.
+
+
+

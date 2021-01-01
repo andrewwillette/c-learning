@@ -222,4 +222,4 @@ C has two methods for defining a symbolic constant: the ``#define`` directive an
 <pre>
 #define CONSTNAME literal
 </pre>
-This creates a constant named ``CONSTNAME`` with the value of _literal_. __literal__ .
+This creates a constant named ``CONSTNAME`` with the value of _literal_. __literal__ <code>literal</code> ``literal``.

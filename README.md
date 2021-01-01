@@ -99,5 +99,24 @@ No special keyword is needed to make an integer variable signed; integer variabl
 
 ``sizeof.c`` helps you determine the size of variables on your particular computer. Don't be surprised if your output doesn't match the output presented after the listing.
 
+| Commonly Used Keyword|Full Name|
+|----------------------|---------|
+|`char`|`signed char`|
+|`short`|`signed short int`|
+|`int`|`signed int`|
+|`long`|`signed long int`|
+|`long long`|`signed long long int`|
+|`unsigned char`|`unsigned char`|
+|`unsigned short`|`unsigned short int`|
+|`unsigned int`|`unsigned int`|
+|`unsigned long`|`unsigned long int`|
+|`unsigned long long`|`unsigned long long int`|
 
+As you can see from this table, _short_ and _long_ types are actually just variations of the _int_ type. Most programmings don't use the full name of the variable types, rather, they use thke shorter version.
+
+### Variable Declarations
+Before you can use a variable in the C program, it must be declared. A variable declaration tells the compiler the name and type of a variable. The declaration may also initialize the variable to a specific value. If your program attempts to use a variable that hasn't been declared, the compiler generates an error message. A variable declaration has the following form:
+<pre>
+_typename_ _varname_;
+</pre>
 

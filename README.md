@@ -384,3 +384,78 @@ This statement resolves to both ``x`` and ``y`` have the value ``11``.
 
 Alright, enough of these baby lessons. I only have so much life in me.
 
+
+## Lesson 9 - Understanding Pointers
+
+### What is a pointer?
+To understand pointers, you need a basic knowledge of how your computer stores information in memory. The following is a somewhat simplified account of PC memory storage.
+
+A PC's memory (RAM) consists of many millions of sequential sotrage locations, and each locaiton is identified by a unique address. The memory addresses in a given computer range from zero to a maximum value that depends on the amount of memory installed.
+
+When you use your computer, the operating system uses some of the system's memory. When you run a program, the program's code (the machine-language instructions for the program's various tasks) and data (the information the program uses) also use some of the system's memory. This section examines the memory storage for program data.
+
+When you declare a variable in a C program, the compiler sets aside a memory location with a unique address to store that variable. The compiler associates that address with the variable's name. When your program uses the variable name, it automatically accesses the proper memory location. The location's address is used, but it is hidden from you, and you need not be concerned with it.
+
+### Creating a pointer
+You should not that the address of any variable is a number cand can be treated like any other number in C. If you know a variable's address, you can create a second variable in which to store the address of the first. Given a variable named ``rate``, the first step is to declare a variable to hold the address of ``rate``. Give it the name ``p_rate``, for example. At first, ``p_rate`` is uninitialized. Storage has been allocated for ``p_rate``, but its value is undetermined.
+
+The next step is to store the address of the variable ``rate`` in the variable ``p_rate``. Because ``p_rate`` now contains the address of ``rate``, it indicates the location in which ``rate`` is stored in memory. In C parlancew, ``p_rate`` _points_ to ``rate``, or is a pointer to ``rate``.
+
+To summarize, a pointer is a variable that contains the address of another variable. Now you can get down to the details of using pointers in your C programs.
+
+Note: How is this useful at all? To get the address to set the pointer, I'm guessing I have to call ``rate.address`` or something. So why store it? I'm sure there's a reason... the author should have said it but alas. He probably will soon.
+
+### Pointers and Simple Variables
+
+#### Declaring Pointers
+A pointer is a numeric variable and, like all variables, must be declared before it can be used. Pointer variable names follow the same rules as other variables and must be unique. This lesson uses the convention that a pointer to the variable ``name`` is called ``p_name``. This isn't necessary, however; you can name pointers anything you want as long as they follow C's naming rules. A point declaration takes the following for:
+<pre>
+typename *ptrname;
+</pre>
+where ``typename`` is any of C's variable types and indicates the type of the variable that the pointer points to. The asterisk (*) is the indirection operator, and it indicates that ``ptrname`` is a pointer to ``typename`` and not a variable of type ``typename``. Pointers can be declared along with nonpointer variables. Here are some more examples:
+<pre>
+char *ch1, *ch2; /* both of these are pointers to type char */
+float *value, percent; /* value is a pointer to type float, percent is normal variable of type float */
+</pre>
+
+#### Initializing Pointers
+The address doesn't get stored in the pointer by magic; your program must put it there by using the address-of operator, the ampersand (&). When placed before the name of a variable, the address-of operator returns the address of the variable. Therefore, you initialize a pointer with a statement of the form
+<pre>
+pointer = &variable
+</pre>
+
+#### Using Pointers
+
+Consider the statement:
+<pre>
+*p_rate = &rate;
+</pre>
+
+If you write ``*p_rate``, this pointer variable refers to the contents of the variable ``rate``. If you want to print the value of ``rate``, you could write
+<pre>
+printf("%d", rate);
+</pre>
+or you could write this statement:
+<pre>
+printf("%d", *p_rate);
+</pre>
+
+In C, these two statements are equivalent. Accessing the contents of a variable by using the variable is called _direct access_. Accessing the contents of a variable by using a pointer to the variable is called _indirect access_ or _indirection_.
+
+``pointer.c`` demonstrates basic pointer usage.
+
+How do pointers handle the addresses of multibyte variables? Here's how: The address of a variable is actually the address of the first (lowest) byte it occupies. This is why you need to declare what type the pointer references. So it knows how many bytes to look at when checking it.
+
+### Pointers and Arrays
+#### The Array Name as a Pointer
+An array name without brackets is a pointer to the array's first element. Thus, if you declare an array ``data[]``, ``data`` is the address of the first array element. Yes, normally you use the ``&`` to get the address of something. In this case, ``&data[0]`` is equivalent to ``data``.
+
+You've seen that the name of an array is a pointer to the array. The name of an array is a pointer constant; it can't be changed and remains fixed for the entire time the program executes. This makes sense: If you changed its value, it would point elsewhere and not to the array.
+
+Below is valid pointer declaration:
+<pre>
+int array[100], *p_array;
+p_array = array;
+</pre>
+
+### Array Element Storage

@@ -238,3 +238,149 @@ The precise action of the ``#define`` directive is to instruct the compiler as f
 </pre>
 
 #### Defining Constants with the ``const`` keyword
+The second way to define a symbolic constant is with the ``const`` keyword. ``const`` is a modifier that can be applied to any variable declaration. A variable declared to be ``const`` can't be modified when the program is executed. A value is initialized at the time of declaration and is then prohibited from being changed. Here are some examples:
+<pre>
+const int count = 100;
+const float pi = 3.14156;
+const long debt = 12000000, flat tax_rate = 0.21;
+</pre>
+``const`` affect all variables on the declaration line. In the last line, ``debt`` and ``tax_rate`` are symbolic constants. As a side note, in this example, ``debt`` was declared as a long and ``tax_rate`` was declared as a float.
+
+If your program tries to modify a ``const`` variable, the compiler generates an error message. The following code would generate an error:
+<pre>
+const int = 100
+count = 200;
+</pre>
+What are the practical differences between symbolic constants created with the ``#define`` directive and those created with the ``const`` keyword? The differences have to do with the pointers and variable scope. Pointers and variable scope are two important aspects of C programming, and you learn about them in Lesson 9, "Understanding Pointers", and Lesson 12.
+
+Now take a look at a program that demonstrates variable declarations and the use of literal symbolic constants. Listing 3.2 prompts you to enter a number of laps run and year of birth. It then calculates and displays the miles you covered and age this year. You can enter, compile, and run this program using the procedures explained in Lesson 1, "Getting Started with C".
+
+This program demonstrates the two methods you can use to declare symbolic constants. On line 5, the ``#define`` directive sets the value 4 to ``LAPS_PER_MILE``. If you move to a place with a smaller or larger track, you can easily change the information in this one spot, and all code will be updated to calculate information using the new symbolic constant. Line 8 shows a second symbolic constant declaration, one using ``const int``. A current year is another place a defined constant makes sense, as it is something you would need to change only once a year.
+Lines 11 and 12 contain the declarations you need for this program's calculations. You need to make ``miles_covered`` a floating-point variable because each lap is one-quarter of a mile (and could change to anything else) and you want to give your user an exact mileage based on how many laps they ran. Line 25 takes the laps entered by the user and calculates the total miles. Using the ``LAPS_PER_MILE`` makes the calculation clearer than just putting a 4 into the statement.
+What may not be as clear is the (float) addition to front of ``laps_run``. To understand why that little extra is needed, remove it, rerun the program, and make sure you enter 7 as the number of laps. Surprised? Even though you delcared ``miles_covered`` as a float, dividing two integers puts an integer answer into that variable, but the ``.00`` might make you think otherwise. To make it worse, the value is truncated, and the ``.75`` after the ``1`` is cut off and not rounded up, as ``2.00`` is a more accurate answer. So putting ``(float)`` in front of ``laps_run`` tells the compiler to treat it like a ``float`` instead of an ``int``. Then you get a precise and correct answer.
+Lines 18 and 20 print prompts onscreen. The ``printf()`` function is covered in greater detail later. To allow the user to respond to the prompts, lines 19 and 21 use another library function, ``scanf()``, which is covered later. ``scanf()`` gets information from the screen. For now, accept that this works as shown in the listing. Later, you learn exactly how it works. Line 26 calculates what age the user will turn sometime in 2021. Obviously, you cannot answer with detail user's exact ages unless you get the day and month of their birthdays as well ass today's day and month to calculate whether they've celebrated a birthday this year yet. For the purpose of this program, mentioning what age they will become this year is close enough. These statements and others are covered in detail in the next lesson. To finish the program, lines 30 and 31 display the results for the user.
+
+## Lesson 4 - The Pieces of a C Program: Statements, Expressions, and Operators
+
+C programs consist of statements, and most statements are composed of expressions and operators. To write C programs, you need to understand statements, expressions, and operators. In this lesson you learn:
+- What a statement is
+- What an expression is
+- How to use C's mathematical, relational, and logical operators
+- What operator precendence is
+- The if statment
+
+Some minor notes from this as most of this is basic stuff.
+
+Legal but bad form:
+<pre>
+printf(
+"hello, world!"
+);
+</pre>
+
+Illegal:
+<pre>
+printf("Hello,
+world!");
+</pre>
+
+To break a string constant line, you must use the backslash character (\) just before the break, Thus the following is legal:
+<pre>
+printf("Hello,\
+world!");
+</pre>
+
+#### Creating a null statement
+If you place a semicolon by itself on a line, you create a null statement. A null statement is one that doesn't perform any action. This is perfectly legal in C. Later in this book, you learn how the null statement can be useful.
+
+#### Compound Statement
+A _compound statement_, also called a _block_, is a group of two or more C statements enclosed in braces. Here's an example of a block:
+<pre>
+{
+    printf("hello, ");
+    printf("world!");
+}
+</pre>
+
+In C, a block can be used anywhere a single statement can be used. Many examples of this appear throughout this book. Note that the enclosing braces can be positioned in different ways. The following is equivalent to the preceding example:
+<pre>
+{printf("hello, ");
+printf("world!");}
+</pre>
+It's a good idea to place braces on their own lines, making the beginning and ending of blocks clearly visible. 
+#### Understanding Expressions
+In C, an _expression_ is anything that evaluates to a numeric value. C expressions come in all levels of complexity.
+
+Following is a valid expression:
+<pre>
+y = x = a + 10
+</pre>
+
+Following is valid expression:
+<pre>
+x = 6 + (y = 4 + 5)
+</pre>
+The result of this is that ``y`` has the value of ``9`` and ``x`` has the value of ``15``. 
+
+#### Operators
+An _operator_ is a symbol that instructs C to perform some operation, or action, on one or more operands. An _operand_ is something that an operator acts on. In C, all operands are expressions. C operators fall into several categories:
+- Assignment operator
+- Mathematical operators
+- Relational operators
+- Logical operators
+
+##### Assignment Operators
+Just the basic 
+<pre>
+x = y;
+</pre>
+<pre>
+variable = expression;
+</pre>
+When executed, ``expression`` is evaluated, and the resulting value is assigned to ``variable``.
+
+##### Mathematical Operators
+
+Unary Operators
+|Operator|Symbol|Action|Exmaples|
+|--------|------|------|--------|
+|Increment|++|Increments the operand by one|++x, x++|
+|Decrement|--|Decrements the operand by one|--x, x--|
+
+Order of ``x++`` vs ``++x`` matters. To understand this:
+<pre>
+x = 10;
+y = x++;
+</pre>
+After these statements are executed, ``x`` has the value ``11`` and ``y`` has the value ``10``.
+
+<pre>
+x = 10;
+y = ++x;
+</pre>
+This statement resolves to both ``x`` and ``y`` have the value ``11``.
+
+``unary.c`` illustrates the difference between prefix mode and postfix mode.
+
+##### Binary Mathematical Operators
+
+|Operator|Symbol|Action|Example|
+|--------|------|------|-------|
+|Addition|+|Adds two operands|x + y|
+|Subtraction|-|Subtracts the second operand from the first operand|x - y|
+|Multiplication|*|Multiplies two operands|x * y|
+|Division|/|Divides the first operand by the second operand|x / y|
+|Modulus|%|Gives the remainder when the first operand is divided by the second operand|x % y|
+
+``seconds.c`` illustrates how you can use the modulus operator to convert a large number of seconds into hours, mintues, and seconds.
+
+##### Operator precedence
+
+|Operators|Relative Precedence|
+|---------|-------------------|
+|++ --|1|
+|* / %|2|
+|+ -|3|
+
+Alright, enough of these baby lessons. I only have so much life in me.
+

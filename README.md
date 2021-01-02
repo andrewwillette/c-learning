@@ -459,3 +459,66 @@ p_array = array;
 </pre>
 
 ### Array Element Storage
+Elements of an array are stored in sequential memory locations fwith the first element in the lowest address. Subsequent array elements are stored in higher addresses. How much higher depends on the array's data type.
+
+How do access successive array elements using a pointer? A pointer must be increased by ``sizeof(datatype)``. See ``counter.c`` for example.
+
+Interesting that the books version seems to be printing out decimal values while my machine is printing out hexadecimal. Glad I'm printing out hexadecimal, I was thinking that's how memory addresses were getting printed out.
+
+### Pointer Arithmetic
+One really only has to be concerned with two pointer operations: incrementing and decrementing.
+
+When incrementing a pointer to an array (``ptr_to_short++``), the value is increased by the number of bytes of the type the pointer is declared as. C does this automatically.
+
+The same holds true for increments greater than 1. If you add the value _n_ to a pointer, C increments the pointer by _n_ array elements of the associated data type. Therefore,
+<pre>
+ptr_to_short += 4;
+</pre>
+increases the ``ptr_to_short`` by 8 (2 bytes per _short_ type). 
+
+Likewise,
+<pre>
+ptr_to_float += 10;
+</pre>
+increases the value stored in ``ptr_to_float`` by 40 (4 bytes per _float_ type).
+
+Decrementing pointers is the same concept. See ``ptr_math.c`` for some example usage.
+
+It seems like if I increase the loop size beyond ``MAX``, it keeps increasing at the same rate.
+I'm wrong. I don't know what I was seeing before, but it appears this is not actually the case. I wonder if I can set a value at a memory location and print that memory location. I'll fiddle with this another time.
+
+### Other Pointer Manipulations
+The other pointer arithmetic operation that you want to use is called _differencing_, which refers to subtracting two pointers. If you have two pointers to different elements of the same array, you can subtract them and find out how far apart they are. 
+
+So if ``ptr1`` and ``ptr2`` point to elements of an array (of any type), the following expression tells you how far apart the elements are:
+<pre>
+ptr1 - ptr2
+</pre>
+
+You can also compare pointers. Pointer comparisons are valid only between pointers that point to the same array.
+<pre>
+ptr1 < ptr2
+</pre>
+is true if ``ptr1`` points to an earlier member of the array that ``ptr2`` does.
+
+This covers all allowed pointer operations. Many arithmetic operations that can be performed with regular variables, such as multiplication and division, don't make sense with pointers. The C compiler doesn't allow them.
+
+## Pointer Cautions
+This is dangerous:
+<pre>
+int *ptr;
+*ptr = 12;
+</pre>
+The value ``12`` is assigned to whatever address ``ptr`` points to. That address can be almost anywhere in memory--where the operating system is stored or somewhere in the program's code. It could overwrite some important information, and the result can be anything from strange program errors to a full system crash.
+The important thing to do/understand is to be sure your program's pointers are properly initialzied before you use them. You must do this yourself; don't assume the compiler will do this for you.
+
+## Array Subscript Notation and Pointers
+An array name without brackets is a pointer to the array's first element. Therefore, you can access the first array element using the indirection operator. If ``array[]`` is a declared array, the expression ``*array`` is the array's first element, ``*(array + 1)`` is the array's second element, and so on. If you generalize the entire array, following relationships hold true:
+<pre>
+*(array) == array[0]
+*(array + 1) == array[1]
+*(array + 2) == array[2]
+...
+*(array + n) == array[n]
+</pre>
+This illustrates the equivalence of array subscript notation and array pointer notation. You can use either in your programs; the C compiler sees them as two different ways of accessing array data using pointers.

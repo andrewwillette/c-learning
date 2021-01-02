@@ -222,4 +222,19 @@ C has two methods for defining a symbolic constant: the ``#define`` directive an
 <pre>
 #define CONSTNAME literal
 </pre>
-This creates a constant named ``CONSTNAME`` with the value of _literal_. __literal__ <code>literal</code> ``literal``.
+This creates a constant named ``CONSTNAME`` with the value of _literal_. _literal_ represents a literal constant, as described earlier. _CONSTNAME_ follows the same rules described earlier for variable names. By convention, the names of symbolic constants are uppercase. This makes them easy to distinguish from variable names, which by convention are lowercase. For the previous example, the required ``#define`` directive for a constant ``PI`` would be 
+<pre>
+#define PI 3.14159
+</pre>
+Note that ``#define`` lines don't end with a semicolon (;). ``#define`` statements can be placed anywhere in your source code, but the defined constant is in effect only for the portions of the source code that follow the ``#define`` directive. Most commonly, programmers group all ``#define`` statements together, near the beginning of the file and before the start of the ``main()`` function.
+
+#### How a #define Works
+The precise action of the ``#define`` directive is to instruct the compiler as follows: "In the source code, replace ``CONSTNAME`` with ``literal``". The effect is exactly the same as if you had used your editor to through the source code and make the changes manually. Note that ``#define`` doesn't replace instances of its target that occur as parts of longer names, within double quotes, or as part of a program comment. For example, in the following code, the instances of ``PI`` in the second and third lines would not get changed:
+
+<pre>
+#define PI 3.14159
+/* You have defined a constant for PI */
+#define PIPETTE 100
+</pre>
+
+#### Defining Constants with the ``const`` keyword

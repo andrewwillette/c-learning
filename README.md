@@ -503,7 +503,7 @@ is true if ``ptr1`` points to an earlier member of the array that ``ptr2`` does.
 
 This covers all allowed pointer operations. Many arithmetic operations that can be performed with regular variables, such as multiplication and division, don't make sense with pointers. The C compiler doesn't allow them.
 
-## Pointer Cautions
+### Pointer Cautions
 This is dangerous:
 <pre>
 int *ptr;
@@ -512,7 +512,7 @@ int *ptr;
 The value ``12`` is assigned to whatever address ``ptr`` points to. That address can be almost anywhere in memory--where the operating system is stored or somewhere in the program's code. It could overwrite some important information, and the result can be anything from strange program errors to a full system crash.
 The important thing to do/understand is to be sure your program's pointers are properly initialzied before you use them. You must do this yourself; don't assume the compiler will do this for you.
 
-## Array Subscript Notation and Pointers
+### Array Subscript Notation and Pointers
 An array name without brackets is a pointer to the array's first element. Therefore, you can access the first array element using the indirection operator. If ``array[]`` is a declared array, the expression ``*array`` is the array's first element, ``*(array + 1)`` is the array's second element, and so on. If you generalize the entire array, following relationships hold true:
 <pre>
 *(array) == array[0]
@@ -522,3 +522,18 @@ An array name without brackets is a pointer to the array's first element. Theref
 *(array + n) == array[n]
 </pre>
 This illustrates the equivalence of array subscript notation and array pointer notation. You can use either in your programs; the C compiler sees them as two different ways of accessing array data using pointers.
+
+### Passing Arrays to Functions
+The only way you can pass an array to a function is by using a pointer. Weird but ok. I'm sure there's a reason.
+
+An argument is a value that the calling program passes to a function. It can be an ``int``, a ``float``, or any other simple data type, but it must be a single numberical value. It can be a single array element, but it can't be an entire array. Okay, so that's why it's necessary to just provide a pointer, I can't give a bunch of arguments to a function, only one. Just the pointer.
+
+Consider this problem then: If you write a function that takes an array as an argument, you want a function that can handle arrays of different sizes. For example, a function which finds the largest element in an array of integers. The function wouldn't be much use if it were limited to dealing with arrays of one fixed size.
+
+How does the function know the size of the array whose address it was passed? Remember, the value passed to a function is a pointer to the first array element. It could be 10 elements or 10,000. There are two methods of letting a function know an array's size.
+
+You can identify the last array element by storing a special value there. As the function processes the array, it looks for that value in each element. When the value is found, the end of the array has been reached. The disadvantage of this method is that it forces you to reserve a value as the end-of-array indicator, reducing the flexibility you have for storing real data in the array.
+
+The other method is more flexible and straightforward, and it's the one used in this book: Pass the function the array size as an argument. This can be a simple time ``int`` argument. Thus, the function is passed two arguments: a pointer to the first array element and an integer specifying the number of elements in the array.
+
+``arraypass.c`` accepts a list of values from the user and stores them in an array. It then calls a function named ``largest()``, passing the array (both pointer and size). The function finds the largest value in the array and returns it to the calling program.

@@ -537,3 +537,75 @@ You can identify the last array element by storing a special value there. As the
 The other method is more flexible and straightforward, and it's the one used in this book: Pass the function the array size as an argument. This can be a simple time ``int`` argument. Thus, the function is passed two arguments: a pointer to the first array element and an integer specifying the number of elements in the array.
 
 ``arraypass.c`` accepts a list of values from the user and stores them in an array. It then calls a function named ``largest()``, passing the array (both pointer and size). The function finds the largest value in the array and returns it to the calling program.
+
+## Lesson 11 - Implementing Structures, Unions, and TypeDefs
+A structure is a data storage type designed by you, the programmer, to suit your programming needs exactly. In this lesson you learn
+- What simple and complex structures are
+- How to define and declare structures
+- How to access data in structures
+- How to create structures that contain arrays and arrays of structures
+- How to declare pointers in structures and pointers to structures
+- How to pass structures as arguments to functions
+- How to define, declare, and use unions
+- How to use type definitions with structures
+
+### Working with Simple Strucutres
+A _structure_ is a collection of one or more variables grouped under a single name for easy manipulation. The variables in a structure, unlike those in an array, can be of different data types. Each variable within a structure is called a _member_ of the structure. The next section shows a simple example.
+You should start with simple structures. Note that C language makes no distinction between simple and complex structures, but it's easier to explain structures in this way.
+
+#### Defining and Declaring Strucutres
+Here's an example of a structure for a graphics program with x and y coordinates.
+<pre>
+struct coord
+{
+    int x;
+    int y;
+};
+</pre>
+The name of a structure is also known as the structure's _tag_ or _type name_.
+
+There are two ways to declare structures. One is to follow the structure definition with a list of one or more variable names, as is done here:
+<pre>
+struct coord {
+    int x;
+    int y;
+} first, second;
+</pre>
+These statements define the structure type ``coord`` and declare two structures, ``first`` and ``second``, of type ``coord``. ``first`` and ``second`` are each _instances_ of type ``coord``; ``first`` contains the two integer members named ``x`` and ``y``, and so does ``second``.
+
+The above method of declaring structures combines the declaration with the defintion. The second method is to declare structure variables at a different location in your source code from the defintion.
+
+<pre>
+struct coord {
+    int x;
+    int y;
+}
+
+struct coord first, second;
+</pre>
+
+#### Accessing Members of a Structure
+Individual structure members can be used like other variables of the same type. Structure members are accessed using the _structure member operator_ (``.``), also called the _dot operator_, between the structure name and the member name. Thus, to have the structure named _first_ refer to a screen location that has coordiantes ``x=50, y=100``, you could write
+<pre>
+first.x = 50;
+first.y = 100;
+</pre>
+To display the screen locations stored in the structure ``second``, you could write
+<pre>
+printf("%d,%d", second.x, second.y);
+</pre>
+At this point, you might wonder what the advantage is of using strucutres rather than individual variables. One major advantage is that you can copy information between structures of the same type with a simple equation statement. Continuing with the preceding example, the statement
+<pre>
+first = second;
+</pre>
+is equivalent to this statement:
+<pre>
+first.x = second.x;
+first.y = second.y;
+</pre>
+
+When your program uses complex structures with many members, this notation can be a great time-saver. Other advantages of structures will become apparent as you learn some advanced techniques. In general, you'll find structures to be useful whenever information of different variable types should be treated as a group. For example, in a mailing list database, each entry could be a structure, and each piece of information (name, address, city, and so on) could be a structure member.
+
+``simplestruct.c`` pulls together everything that has been covered up to this point. It is not practical; however, it illustrates the point of a simple structure.
+
+

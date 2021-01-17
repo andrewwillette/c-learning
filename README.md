@@ -609,3 +609,11 @@ When your program uses complex structures with many members, this notation can b
 ``simplestruct.c`` pulls together everything that has been covered up to this point. It is not practical; however, it illustrates the point of a simple structure.
 
 
+## Postgre Connection
+
+Got the postgre header file correctly imported.
+Successfully compiled initializing conneciton. Required me to link the library with 'lpb'
+
+Got postgre connection to my localhost working.  
+Learning a little bit about this CURSOR idea in postgre. 
+Rather than executing a whole query at once, it is possible to set up a _cursor_ that encapsulates the query, and then read the query result a few rows at a time. One reason for doing this is to avoid memory overrun when the result contains a large number of rows. A more interesting usage is to return a reference to a cursor that a function has created, allowing the caller to read the rows. This provides an efficient way to return large row sets from functions.
